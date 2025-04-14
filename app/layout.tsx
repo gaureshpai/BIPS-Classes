@@ -10,8 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "BIPS Classes - Empowering Through Education",
-  description:
-    "BIPS Classes offers quality training in Digital Marketing, Spoken English, and Competitive Exam Preparation.",
+  description: "BIPS Classes offers quality training in Digital Marketing, Spoken English, and Competitive Exam Preparation.",
 }
 
 export default function RootLayout({

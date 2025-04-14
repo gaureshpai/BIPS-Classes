@@ -88,10 +88,6 @@ export default function CoursesPage() {
                       </div>
                     </div>
                   </div>
-
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">contact</Link>
-                  </Button>
                 </div>
 
                 <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
@@ -147,10 +143,6 @@ export default function CoursesPage() {
                       </div>
                     </div>
                   </div>
-
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">contact</Link>
-                  </Button>
                 </div>
 
                 <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
@@ -206,10 +198,6 @@ export default function CoursesPage() {
                       </div>
                     </div>
                   </div>
-
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">contact</Link>
-                  </Button>
                 </div>
 
                 <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
@@ -265,10 +253,6 @@ export default function CoursesPage() {
                       </div>
                     </div>
                   </div>
-
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">contact</Link>
-                  </Button>
                 </div>
 
                 <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
@@ -333,7 +317,7 @@ export default function CoursesPage() {
       <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center" ref={ctaRef}>
           <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Enhance Your Skills?</h2>
+            <h2 className="text-3xl md:text-4xl text-black font-bold mb-6">Ready to Enhance Your Skills?</h2>
             <p className="text-xl mb-8">Join BIPS Classes today and take a step towards a successful career.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">

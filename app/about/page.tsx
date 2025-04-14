@@ -16,7 +16,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
         <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About BIPS Classes</h1>
@@ -35,13 +35,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-white">
+      <section className="p-8 md:p-16 bg-white">
         <div className="container grid grid-cols-1 md:grid-cols-2 gap-12" ref={visionRef}>
           <div className={cn("space-y-6", visionInView ? "animate-slide-in-left" : "opacity-0")}>
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+
+            <h2 className="text-3xl font-bold"><div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
               <Target className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-3xl font-bold">Our Vision</h2>
+            </div>Our Vision</h2>
             <p className="text-gray-600">
               To become a leading institution for career-oriented education and to create 1,00,000 skilled professionals
               by 2025.
@@ -58,10 +58,10 @@ export default function AboutPage() {
           </div>
 
           <div className={cn("space-y-6", visionInView ? "animate-slide-in-right" : "opacity-0")}>
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+
+            <h2 className="text-3xl font-bold"><div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
               <Compass className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-3xl font-bold">Our Mission</h2>
+            </div>Our Mission</h2>
             <p className="text-gray-600">
               To empower through education by delivering accessible, high-quality training that equips learners with
               essential skills for real-world success.
@@ -79,7 +79,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-gray-50">
+      <section className="p-8 md:p-16 bg-gray-50">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", valuesInView ? "animate-slide-up" : "opacity-0")}
@@ -136,7 +136,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-white">
+      <section className="p-8 md:p-16 bg-white">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", teamInView ? "animate-slide-up" : "opacity-0")}
@@ -189,10 +189,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
+      <section className="p-8 md:p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center">
           <div className="max-w-3xl mx-auto animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Learning Community</h2>
+            <h2 className="text-3xl md:text-4xl text-black font-bold mb-6">Join Our Learning Community</h2>
             <p className="text-xl mb-8">Take the first step towards a brighter future with BIPS Classes.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">

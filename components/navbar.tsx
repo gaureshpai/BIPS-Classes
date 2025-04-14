@@ -6,6 +6,7 @@ import { Menu, X, Clock, MapPin, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,22 +15,14 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
+      setScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+  const toggleMenu = () => setIsOpen(!isOpen)
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -38,120 +31,116 @@ export function Navbar() {
   ]
 
   return (
-    <header className="w-full">
-      <div className="bg-primary text-white p-2">
-        <div className="container flex flex-col md:flex-row justify-between items-center text-sm">
-          <div className="flex items-center space-x-4 mb-2 md:mb-0">
+    <header className="w-full sticky top-0 z-50">
+      <div className="bg-primary text-white py-2 px-4">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-sm">
+          <div className="flex items-center gap-4">
             <div className="flex items-center">
-              <MapPin className="h-4 w-4 mr-1" />
+              <MapPin className="h-4 w-4 mr-1.5" />
               <span>Bajpe, Mangalore, Karnataka 574142</span>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+
+          <div className="flex items-center gap-4">
             <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-1" />
+              <Clock className="h-4 w-4 mr-1.5" />
               <span>Mon-Sat: 9:00 AM to 6:00 PM</span>
             </div>
             <div className="flex items-center">
-              <Phone className="h-4 w-4 mr-1" />
-              <span>+91 7996721232</span>
+              <Phone className="h-4 w-4 mr-1.5" />
+              <Link
+                href="tel:+917996721232"
+                className="hover:underline text-white flex items-center"
+              >
+                +91 7996721232
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      <nav className={cn("p-4 transition-all duration-300 z-50 w-full text-center flex justify-center", scrolled ? "bg-white shadow-md" : "bg-white")}>
-        <div className="container flex justify-between items-center md:max-w-7xl">
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary">BIPS</span>
-            <span className="text-2xl font-bold ml-1">Classes</span>
+      <nav className={cn(
+        "bg-white transition-all duration-300 justify-center text-center flex border-b",
+        scrolled ? "shadow-md py-2" : "py-4"
+      )}>
+        <div className="container mx-auto px-4 flex justify-between max-w-7xl items-center">
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image
+              src="/logo1.png"
+              alt="BIPS Classes Logo"
+              width={1080}
+              height={1080}
+              className="w-8 h-8 md:w-10 md:h-10"
+              priority
+            />
+            <div className="flex items-baseline">
+              <span className="text-2xl font-bold text-primary">BIPS </span>
+              <span className="text-2xl font-bold">Classes</span>
+            </div>
           </Link>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "font-medium transition-colors hover:text-primary",
-                  pathname === link.href ? "text-primary" : "text-gray-700",
+                  "font-medium transition-colors hover:text-primary py-1 px-1",
+                  pathname === link.href
+                    ? "text-primary border-b-2 border-primary"
+                    : "text-gray-800 hover:text-primary/90"
                 )}
               >
                 {link.label}
               </Link>
             ))}
-          </div>
 
-          <div className="hidden md:block">
             <Button
               asChild
-              className="
-                  bg-primary hover:bg-primary/90 
-                  text-white font-medium
-                  w-full p-2 text-md
-                  transition-all duration-300
-                  active:translate-y-0
-                  rounded-lg
-                  group
-                  relative overflow-hidden
-                "
+              className="bg-primary hover:bg-primary/90 text-white font-medium
+                         px-6 py-2 rounded-lg transition-all shadow hover:shadow-md"
             >
               <Link href="/contact">
-                <span className="relative z-10">Contact Us</span>
-                <span className="
-                    absolute inset-0 
-                    bg-gradient-to-r from-primary/80 to-primary/60 
-                    opacity-0 group-hover:opacity-100
-                    transition-opacity duration-300
-                  "></span>
+                Contact Us
               </Link>
             </Button>
           </div>
 
-          <button className="md:hidden text-gray-700" onClick={toggleMenu} aria-label="Toggle menu">
+          <button
+            className="md:hidden p-2 text-gray-800 rounded-md hover:bg-gray-100"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {isOpen && (
-          <div className="md:hidden absolute top-[104px] left-0 right-0 bg-white shadow-md z-50 animate-fade-in">
-            <div className="container p-4 flex flex-col space-y-4">
+          <div className="md:hidden bg-white shadow-lg animate-fade-in-down">
+            <div className="container px-4 py-3 flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "font-medium py-2 transition-colors hover:text-primary",
-                    pathname === link.href ? "text-primary" : "text-gray-700",
+                    "font-medium py-3 px-2 rounded-md transition-colors",
+                    pathname === link.href
+                      ? "bg-primary/10 text-primary"
+                      : "text-gray-800 hover:bg-gray-50"
                   )}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
+
               <Button
                 asChild
-                className="
-                  bg-primary hover:bg-primary/90 
-                  text-white font-medium
-                  w-full py-6 text-lg
-                  transition-all duration-300
-                  shadow-md hover:shadow-lg
-                  transform hover:-translate-y-0.5
-                  active:translate-y-0
-                  rounded-lg
-                  group
-                  relative overflow-hidden
-                "
+                className="bg-primary hover:bg-primary/90 text-white font-medium
+                           py-3 rounded-lg mt-2 shadow hover:shadow-md"
               >
-                <Link href="/contact">
-                  <span className="relative z-10">Contact Us</span>
-                  <span className="
-                    absolute inset-0 
-                    bg-gradient-to-r from-primary/80 to-primary/60 
-                    opacity-0 group-hover:opacity-100
-                    transition-opacity duration-300
-                  "></span>
+                <Link href="/contact" onClick={() => setIsOpen(false)}>
+                  Contact Us
                 </Link>
               </Button>
             </div>
