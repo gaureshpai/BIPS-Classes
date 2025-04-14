@@ -2,8 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Target, Compass } from "lucide-react"
@@ -18,9 +16,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <Navbar />
-
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 py-16">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16">
         <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About BIPS Classes</h1>
@@ -39,7 +35,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="p-16 bg-white">
         <div className="container grid grid-cols-1 md:grid-cols-2 gap-12" ref={visionRef}>
           <div className={cn("space-y-6", visionInView ? "animate-slide-in-left" : "opacity-0")}>
             <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
@@ -83,7 +79,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="p-16 bg-gray-50">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", valuesInView ? "animate-slide-up" : "opacity-0")}
@@ -140,7 +136,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="p-16 bg-white">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", teamInView ? "animate-slide-up" : "opacity-0")}
@@ -193,7 +189,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-primary text-white">
+      <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center">
           <div className="max-w-3xl mx-auto animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Learning Community</h2>
@@ -202,15 +198,13 @@ export default function AboutPage() {
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
                 <Link href="/courses">Explore Courses</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="border-white text-black hover:bg-white/10">
                 <Link href="/contact">Contact Us</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

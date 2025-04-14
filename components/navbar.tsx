@@ -35,12 +35,11 @@ export function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us" },
     { href: "/courses", label: "Courses" },
-    { href: "/contact", label: "Contact Us" },
   ]
 
   return (
     <header className="w-full">
-      <div className="bg-primary text-white py-2">
+      <div className="bg-primary text-white p-2">
         <div className="container flex flex-col md:flex-row justify-between items-center text-sm">
           <div className="flex items-center space-x-4 mb-2 md:mb-0">
             <div className="flex items-center">
@@ -61,8 +60,8 @@ export function Navbar() {
         </div>
       </div>
 
-      <nav className={cn("py-4 transition-all duration-300 z-50 w-full", scrolled ? "bg-white shadow-md" : "bg-white")}>
-        <div className="container flex justify-between items-center">
+      <nav className={cn("p-4 transition-all duration-300 z-50 w-full text-center flex justify-center", scrolled ? "bg-white shadow-md" : "bg-white")}>
+        <div className="container flex justify-between items-center md:max-w-7xl">
           <Link href="/" className="flex items-center">
             <span className="text-2xl font-bold text-primary">BIPS</span>
             <span className="text-2xl font-bold ml-1">Classes</span>
@@ -84,7 +83,29 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:block">
-            <Button className="bg-primary hover:bg-primary/90 text-white">Enroll Now</Button>
+            <Button
+              asChild
+              className="
+                  bg-primary hover:bg-primary/90 
+                  text-white font-medium
+                  w-full p-2 text-md
+                  transition-all duration-300
+                  active:translate-y-0
+                  rounded-lg
+                  group
+                  relative overflow-hidden
+                "
+            >
+              <Link href="/contact">
+                <span className="relative z-10">Contact Us</span>
+                <span className="
+                    absolute inset-0 
+                    bg-gradient-to-r from-primary/80 to-primary/60 
+                    opacity-0 group-hover:opacity-100
+                    transition-opacity duration-300
+                  "></span>
+              </Link>
+            </Button>
           </div>
 
           <button className="md:hidden text-gray-700" onClick={toggleMenu} aria-label="Toggle menu">
@@ -94,7 +115,7 @@ export function Navbar() {
 
         {isOpen && (
           <div className="md:hidden absolute top-[104px] left-0 right-0 bg-white shadow-md z-50 animate-fade-in">
-            <div className="container py-4 flex flex-col space-y-4">
+            <div className="container p-4 flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -108,7 +129,31 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <Button className="bg-primary hover:bg-primary/90 text-white w-full">Enroll Now</Button>
+              <Button
+                asChild
+                className="
+                  bg-primary hover:bg-primary/90 
+                  text-white font-medium
+                  w-full py-6 text-lg
+                  transition-all duration-300
+                  shadow-md hover:shadow-lg
+                  transform hover:-translate-y-0.5
+                  active:translate-y-0
+                  rounded-lg
+                  group
+                  relative overflow-hidden
+                "
+              >
+                <Link href="/contact">
+                  <span className="relative z-10">Contact Us</span>
+                  <span className="
+                    absolute inset-0 
+                    bg-gradient-to-r from-primary/80 to-primary/60 
+                    opacity-0 group-hover:opacity-100
+                    transition-opacity duration-300
+                  "></span>
+                </Link>
+              </Button>
             </div>
           </div>
         )}

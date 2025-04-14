@@ -1,8 +1,7 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, BookOpen, Award, Users, Briefcase, Clock } from "lucide-react"
@@ -19,9 +18,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <Navbar />
-
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 py-16 md:py-24">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16 md:py-24">
         <div
           ref={heroRef}
           className={cn(
@@ -63,7 +60,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="p-16 bg-white">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", whyChooseInView ? "animate-slide-up" : "opacity-0")}
@@ -140,7 +137,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="p-16 bg-gray-50">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", coursesInView ? "animate-slide-up" : "opacity-0")}
@@ -206,7 +203,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-primary text-white">
+      <section className="p-16 bg-primary text-white">
         <div className="container" ref={statsRef}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -230,7 +227,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="p-16 bg-white">
         <div className="container">
           <div
             className={cn("text-center max-w-3xl mx-auto mb-12", testimonialsInView ? "animate-slide-up" : "opacity-0")}
@@ -294,24 +291,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-r from-primary to-primary/80 text-white">
+      <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center" ref={ctaRef}>
           <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Learning Journey?</h2>
-            <p className="text-xl mb-8">Your journey to success begins here. Take the first step today!</p>
+            <h2 className="text-3xl text-black md:text-4xl font-bold mb-6">Ready to Start Your Learning Journey?</h2>
+            <p className="text-xl text-black mb-8">Your journey to success begins here. Take the first step today!</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-                <Link href="/courses">Enroll Now</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                <Link href="/contact">Request a Callback</Link>
+                <Link href="/courses">Contact Us</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

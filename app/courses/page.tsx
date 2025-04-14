@@ -1,8 +1,7 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -18,9 +17,7 @@ export default function CoursesPage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <Navbar />
-
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 py-16">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16">
         <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Courses</h1>
@@ -32,20 +29,20 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="p-16 bg-white">
         <div className="container" ref={coursesRef}>
           <Tabs defaultValue="english" className="w-full">
             <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 h-auto mb-8">
-              <TabsTrigger value="english" className="py-3">
+              <TabsTrigger value="english" className="py-3 cursor-pointer">
                 Spoken English
               </TabsTrigger>
-              <TabsTrigger value="digital" className="py-3">
+              <TabsTrigger value="digital" className="py-3 cursor-pointer">
                 Digital Marketing
               </TabsTrigger>
-              <TabsTrigger value="ibps" className="py-3">
+              <TabsTrigger value="ibps" className="py-3 cursor-pointer">
                 IBPS Coaching
               </TabsTrigger>
-              <TabsTrigger value="entrepreneur" className="py-3">
+              <TabsTrigger value="entrepreneur" className="py-3 cursor-pointer">
                 Entrepreneurship
               </TabsTrigger>
             </TabsList>
@@ -93,7 +90,7 @@ export default function CoursesPage() {
                   </div>
 
                   <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">Enroll Now</Link>
+                    <Link href="/contact">contact</Link>
                   </Button>
                 </div>
 
@@ -152,7 +149,7 @@ export default function CoursesPage() {
                   </div>
 
                   <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">Enroll Now</Link>
+                    <Link href="/contact">contact</Link>
                   </Button>
                 </div>
 
@@ -211,7 +208,7 @@ export default function CoursesPage() {
                   </div>
 
                   <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">Enroll Now</Link>
+                    <Link href="/contact">contact</Link>
                   </Button>
                 </div>
 
@@ -270,7 +267,7 @@ export default function CoursesPage() {
                   </div>
 
                   <Button asChild size="lg" className="bg-primary hover:bg-primary/90 mt-4">
-                    <Link href="/contact">Enroll Now</Link>
+                    <Link href="/contact">contact</Link>
                   </Button>
                 </div>
 
@@ -288,7 +285,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="p-16 bg-gray-50">
         <div className="container" ref={featuresRef}>
           <div className={cn("text-center max-w-3xl mx-auto mb-12", featuresInView ? "animate-slide-up" : "opacity-0")}>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Features of Our Courses</h2>
@@ -333,24 +330,19 @@ export default function CoursesPage() {
         </div>
       </section>
       
-      <section className="py-16 bg-primary text-white">
+      <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center" ref={ctaRef}>
           <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Enhance Your Skills?</h2>
             <p className="text-xl mb-8">Join BIPS Classes today and take a step towards a successful career.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90">
-                <Link href="/contact">Enroll Now</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                <Link href="/contact">Request Information</Link>
+                <Link href="/contact">Contact Us</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }
