@@ -33,21 +33,20 @@ export function Navbar() {
   return (
     <header className="w-full sticky top-0 z-50">
       <div className="bg-primary text-white py-2 px-4">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-sm">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center">
-              <MapPin className="h-4 w-4 mr-1.5" />
-              <span>Bajpe, Mangalore, Karnataka 574142</span>
-            </div>
+        <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-sm">
+          <div className="flex items-center sm:w-auto w-full justify-center sm:justify-start">
+            <MapPin className="h-4 w-4 mr-1.5 flex-shrink-0" />
+            <span className="text-center sm:text-left">Bajpe, Mangalore, Karnataka 574142</span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-1.5" />
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-full sm:w-auto">
+            <div className="flex items-center justify-center sm:justify-start">
+              <Clock className="h-4 w-4 mr-1.5 flex-shrink-0" />
               <span>Mon-Sat: 9:00 AM to 6:00 PM</span>
             </div>
-            <div className="flex items-center">
-              <Phone className="h-4 w-4 mr-1.5" />
+
+            <div className="flex items-center justify-center sm:justify-start">
+              <Phone className="h-4 w-4 mr-1.5 flex-shrink-0" />
               <Link
                 href="tel:+917996721232"
                 className="hover:underline text-white flex items-center"
@@ -58,7 +57,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-
       <nav className={cn(
         "bg-white transition-all duration-300 justify-center text-center flex border-b",
         scrolled ? "shadow-md py-2" : "py-4"
@@ -116,17 +114,17 @@ export function Navbar() {
         </div>
 
         {isOpen && (
-          <div className="md:hidden bg-white shadow-lg animate-fade-in-down">
-            <div className="container px-4 py-3 flex flex-col gap-3">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t z-40">
+            <div className="container px-4 py-3 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "font-medium py-3 px-2 rounded-md transition-colors",
+                    "font-medium py-3 px-4 rounded-md transition-colors text-sm",
                     pathname === link.href
-                      ? "bg-primary/10 text-primary"
-                      : "text-gray-800 hover:bg-gray-50"
+                      ? "bg-primary/10 text-primary font-semibold"
+                      : "text-gray-800 hover:bg-gray-100"
                   )}
                   onClick={() => setIsOpen(false)}
                 >
@@ -137,7 +135,7 @@ export function Navbar() {
               <Button
                 asChild
                 className="bg-primary hover:bg-primary/90 text-white font-medium
-                           py-3 rounded-lg mt-2 shadow hover:shadow-md"
+                           py-3 rounded-md mt-1 text-sm"
               >
                 <Link href="/contact" onClick={() => setIsOpen(false)}>
                   Contact Us

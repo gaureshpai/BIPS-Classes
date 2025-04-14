@@ -17,7 +17,7 @@ export default function CoursesPage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
         <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Courses</h1>
@@ -29,7 +29,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-white">
+      <section className="p-8 md:p-16 bg-white">
         <div className="container" ref={coursesRef}>
           <Tabs defaultValue="english" className="w-full">
             <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 h-auto mb-8">
@@ -269,7 +269,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-gray-50">
+      <section className="p-8 md:p-16 bg-gray-50">
         <div className="container" ref={featuresRef}>
           <div className={cn("text-center max-w-3xl mx-auto mb-12", featuresInView ? "animate-slide-up" : "opacity-0")}>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Features of Our Courses</h2>
@@ -314,7 +314,7 @@ export default function CoursesPage() {
         </div>
       </section>
       
-      <section className="p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
+      <section className="p-8 md:p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="container text-center" ref={ctaRef}>
           <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
             <h2 className="text-3xl md:text-4xl text-black font-bold mb-6">Ready to Enhance Your Skills?</h2>

@@ -56,7 +56,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-16">
+      <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
         <div className="container">
           <div className="max-w-3xl animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch with Us</h1>
@@ -68,7 +68,7 @@ export default function ContactPage() {
         </div>
       </section>
       
-      <section className="p-16 bg-white">
+      <section className="p-8 md:p-16 bg-white">
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div ref={formRef} className={cn("space-y-6", formInView ? "animate-slide-in-left" : "opacity-0")}>
             <h2 className="text-3xl font-bold">Send Us a Message</h2>
@@ -146,7 +146,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                  <Button type="submit" className="w-full cursor-pointer bg-primary hover:bg-primary/90" disabled={isSubmitting}>
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
 
@@ -247,7 +247,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="p-16 bg-gray-50">
+      <section className="p-8 md:p-16 bg-gray-50">
         <div className="container">
           <div
             ref={mapRef}
