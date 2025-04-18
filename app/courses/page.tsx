@@ -6,19 +6,40 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CheckCircle, Clock, Users, Award } from "lucide-react"
-import { useInView } from "react-intersection-observer"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export default function CoursesPage() {
-  const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true })
-  const { ref: coursesRef, inView: coursesInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: featuresRef, inView: featuresInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: ctaRef, inView: ctaInView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } }
+  }
+
+  const slideUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  }
+
+  const staggerChildren = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
 
   return (
     <main className="min-h-screen flex flex-col">
       <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
-        <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
+        <motion.div
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Courses</h1>
             <p className="text-xl text-gray-700">
@@ -26,11 +47,17 @@ export default function CoursesPage() {
               future career opportunities.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="p-8 md:p-16 bg-white">
-        <div className="container" ref={coursesRef}>
+        <motion.div
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeIn}
+        >
           <Tabs defaultValue="english" className="w-full">
             <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 h-auto mb-8">
               <TabsTrigger value="english" className="py-3 cursor-pointer">
@@ -47,8 +74,13 @@ export default function CoursesPage() {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="english" className={cn(coursesInView ? "animate-fade-in" : "opacity-0")}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <TabsContent value="english">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+              >
                 <div className="space-y-6">
                   <h2 className="text-3xl font-bold">Spoken English Course</h2>
                   <p className="text-gray-600">
@@ -98,11 +130,16 @@ export default function CoursesPage() {
                     className="object-cover"
                   />
                 </div>
-              </div>
+              </motion.div>
             </TabsContent>
 
-            <TabsContent value="digital" className={cn(coursesInView ? "animate-fade-in" : "opacity-0")}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <TabsContent value="digital">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+              >
                 <div className="space-y-6">
                   <h2 className="text-3xl font-bold">Digital Marketing Course</h2>
                   <p className="text-gray-600">
@@ -153,11 +190,16 @@ export default function CoursesPage() {
                     className="object-cover"
                   />
                 </div>
-              </div>
+              </motion.div>
             </TabsContent>
 
-            <TabsContent value="ibps" className={cn(coursesInView ? "animate-fade-in" : "opacity-0")}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <TabsContent value="ibps">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+              >
                 <div className="space-y-6">
                   <h2 className="text-3xl font-bold">IBPS Coaching</h2>
                   <p className="text-gray-600">
@@ -208,11 +250,16 @@ export default function CoursesPage() {
                     className="object-cover"
                   />
                 </div>
-              </div>
+              </motion.div>
             </TabsContent>
 
-            <TabsContent value="entrepreneur" className={cn(coursesInView ? "animate-fade-in" : "opacity-0")}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <TabsContent value="entrepreneur">
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+              >
                 <div className="space-y-6">
                   <h2 className="text-3xl font-bold">Entrepreneurship Program</h2>
                   <p className="text-gray-600">
@@ -263,20 +310,32 @@ export default function CoursesPage() {
                     className="object-cover"
                   />
                 </div>
-              </div>
+              </motion.div>
             </TabsContent>
           </Tabs>
-        </div>
+        </motion.div>
       </section>
 
       <section className="p-8 md:p-16 bg-gray-50">
-        <div className="container" ref={featuresRef}>
-          <div className={cn("text-center max-w-3xl mx-auto mb-12", featuresInView ? "animate-slide-up" : "opacity-0")}>
+        <div className="container">
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideUp}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Features of Our Courses</h2>
             <p className="text-gray-600">What makes our training programs stand out from the rest.</p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerChildren}
+          >
             {[
               {
                 title: "Expert Trainers",
@@ -294,29 +353,31 @@ export default function CoursesPage() {
                 icon: <Award className="h-10 w-10 text-primary" />,
               },
             ].map((feature, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full",
-                  featuresInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
-                <CardHeader>
-                  <div className="mb-4">{feature.icon}</div>
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={slideUp}>
+                <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                  <CardHeader>
+                    <div className="mb-4">{feature.icon}</div>
+                    <CardTitle>{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
-      
+
       <section className="p-8 md:p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
-        <div className="container text-center" ref={ctaRef}>
-          <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
+        <motion.div
+          className="container text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl text-black font-bold mb-6">Ready to Enhance Your Skills?</h2>
             <p className="text-xl mb-8">Join BIPS Classes today and take a step towards a successful career.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -325,7 +386,7 @@ export default function CoursesPage() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   )

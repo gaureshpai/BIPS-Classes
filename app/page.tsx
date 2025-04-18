@@ -5,26 +5,58 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, BookOpen, Award, Users, Briefcase, Clock } from "lucide-react"
-import { useInView } from "react-intersection-observer"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react"
 
 export default function Home() {
-  const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true })
-  const { ref: whyChooseRef, inView: whyChooseInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: coursesRef, inView: coursesInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: ctaRef, inView: ctaInView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } }
+  }
+
+  const slideUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  }
+
+  const staggerChildren = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const bounceIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    }
+  }
 
   return (
     <main className="min-h-screen flex flex-col">
       <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
-        <div
-          ref={heroRef}
-          className={cn(
-            "container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center",
-            heroInView ? "animate-fade-in" : "opacity-0",
-          )}
+        <motion.div
+          className={`container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
         >
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
@@ -57,23 +89,32 @@ export default function Home() {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="p-8 md:p-16 bg-white">
         <div className="container">
-          <div
-            className={cn("text-center max-w-3xl mx-auto mb-12", whyChooseInView ? "animate-slide-up" : "opacity-0")}
-            ref={whyChooseRef}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose BIPS Classes?</h2>
             <p className="text-gray-600">
               We are committed to providing quality education that prepares you for real-world challenges and
               opportunities.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerChildren}
+          >
             {[
               {
                 icon: <Users className="h-10 w-10 text-primary" />,
@@ -106,50 +147,56 @@ export default function Home() {
                 description: "Quality education with flexible payment plans to make learning accessible.",
               },
             ].map((feature, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full",
-                  whyChooseInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
-                <CardHeader>
-                  <div className="mb-4">{feature.icon}</div>
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={slideUp}>
+                <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                  <CardHeader>
+                    <div className="mb-4">{feature.icon}</div>
+                    <CardTitle>{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div
-            className={cn(
-              "text-center mt-12",
-              whyChooseInView ? "animate-slide-up [animation-delay:600ms]" : "opacity-0",
-            )}
+          <motion.div
+            className="text-center mt-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideUp}
           >
             <p className="text-lg font-medium text-gray-700 italic">
               "Join our mission to become one among the 1,00,000 professionals we are shaping for tomorrow."
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-gray-50">
         <div className="container">
-          <div
-            className={cn("text-center max-w-3xl mx-auto mb-12", coursesInView ? "animate-slide-up" : "opacity-0")}
-            ref={coursesRef}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Courses</h2>
             <p className="text-gray-600">
               Discover our carefully curated courses designed to help you succeed in today's competitive world.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerChildren}
+          >
             {[
               {
                 title: "Spoken English Course",
@@ -176,35 +223,37 @@ export default function Home() {
                 image: "/placeholder.svg?height=300&width=500",
               },
             ].map((course, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300",
-                  coursesInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
-                <div className="relative h-48 w-full">
-                  <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-cover" />
-                </div>
-                <CardHeader>
-                  <CardTitle>{course.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{course.description}</p>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                    <Link href="/courses">Know More</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
+              <motion.div key={index} variants={slideUp}>
+                <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="relative h-48 w-full">
+                    <Image src={course.image || "/placeholder.svg"} alt={course.title} fill className="object-cover" />
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{course.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{course.description}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                      <Link href="/courses">Know More</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-primary text-white">
-        <div className="container" ref={statsRef}>
+        <motion.div
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { number: "5+", label: "Years of Excellence" },
@@ -212,32 +261,35 @@ export default function Home() {
               { number: "95%", label: "Placement Rate" },
               { number: "20+", label: "Expert Trainers" },
             ].map((stat, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "text-center",
-                  statsInView ? `animate-bounce-in [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
+              <motion.div key={index} className="text-center" variants={bounceIn}>
                 <div className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
                 <div className="text-primary-foreground/90">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="p-8 md:p-16 bg-white">
         <div className="container">
-          <div
-            className={cn("text-center max-w-3xl mx-auto mb-12", testimonialsInView ? "animate-slide-up" : "opacity-0")}
-            ref={testimonialsRef}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Students Say</h2>
             <p className="text-gray-600">Hear from our students about their learning experience at BIPS Classes.</p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerChildren}
+          >
             {[
               {
                 name: "Priya Sharma",
@@ -261,39 +313,41 @@ export default function Home() {
                 image: "/placeholder.svg?height=100&width=100",
               },
             ].map((testimonial, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "border-none shadow-lg h-full",
-                  testimonialsInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="relative h-12 w-12 rounded-full overflow-hidden">
-                    <Image
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                    <CardDescription>{testimonial.course}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 italic">"{testimonial.quote}"</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={slideUp}>
+                <Card className="border-none shadow-lg h-full">
+                  <CardHeader className="flex flex-row items-center gap-4">
+                    <div className="relative h-12 w-12 rounded-full overflow-hidden">
+                      <Image
+                        src={testimonial.image || "/placeholder.svg"}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                      <CardDescription>{testimonial.course}</CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 italic">"{testimonial.quote}"</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
-        <div className="container text-center" ref={ctaRef}>
-          <div className={cn("max-w-3xl mx-auto", ctaInView ? "animate-fade-in" : "opacity-0")}>
+        <motion.div
+          className="container text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl text-black md:text-4xl font-bold mb-6">Ready to Start Your Learning Journey?</h2>
             <p className="text-xl text-white mb-8">Your journey to success begins here. Take the first step today!</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -305,7 +359,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   )

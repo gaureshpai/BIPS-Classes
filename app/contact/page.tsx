@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from "lucide-react"
-import { useInView } from "react-intersection-observer"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export default function ContactPage() {
@@ -24,9 +24,25 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
-  const { ref: formRef, inView: formInView } = useInView({ triggerOnce: true })
-  const { ref: mapRef, inView: mapInView } = useInView({ triggerOnce: true })
-  const { ref: infoRef, inView: infoInView } = useInView({ triggerOnce: true })
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } }
+  }
+
+  const slideUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  }
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  }
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -57,20 +73,32 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen flex flex-col">
       <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
-        <div className="container">
-          <div className="max-w-3xl animate-fade-in">
+        <motion.div
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch with Us</h1>
             <p className="text-xl text-gray-700">
               We would love to hear from you. Whether you want to join a course, ask a query, or collaborate with us,
               feel free to contact us.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
-      
+
       <section className="p-8 md:p-16 bg-white">
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div ref={formRef} className={cn("space-y-6", formInView ? "animate-slide-in-left" : "opacity-0")}>
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInLeft}
+          >
             <h2 className="text-3xl font-bold">Send Us a Message</h2>
             <Card className="border-none shadow-lg">
               <CardContent className="pt-6">
@@ -151,20 +179,36 @@ export default function ContactPage() {
                   </Button>
 
                   {isSuccess && (
-                    <div className="p-3 bg-green-100 text-green-700 rounded-md text-center">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-3 bg-green-100 text-green-700 rounded-md text-center"
+                    >
                       Thank you for your message! We'll get back to you soon.
-                    </div>
+                    </motion.div>
                   )}
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
 
-          <div ref={infoRef} className={cn("space-y-8", infoInView ? "animate-slide-in-right" : "opacity-0")}>
+          <motion.div
+            className="space-y-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInRight}
+          >
             <h2 className="text-3xl font-bold">Contact Information</h2>
 
             <div className="space-y-6">
-              <div className="flex items-start">
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
                 <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-primary/10">
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
@@ -175,38 +219,56 @@ export default function ContactPage() {
                     Mangalore, Karnataka 574142
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-start">
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
                 <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-primary/10">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold">Call Us</h3>
                   <p className="text-gray-600 mt-1">
-                    <a href="tel:+917996721232" className="hover:text-primary">
+                    <Link href="tel:+917996721232" className="hover:text-primary">
                       +91 7996721232
-                    </a>
+                    </Link>
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-start">
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
                 <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-primary/10">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold">Email Us</h3>
                   <p className="text-gray-600 mt-1">
-                    <a href="mailto:bipsclasses@gmail.com" className="hover:text-primary">
+                    <Link href="mailto:bipsclasses@gmail.com" className="hover:text-primary">
                       bipsclasses@gmail.com
-                    </a>
+                    </Link>
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="space-y-4">
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
               <h3 className="text-xl font-semibold">Follow Us on Social Media</h3>
               <div className="flex space-x-4">
                 <Link
@@ -228,9 +290,15 @@ export default function ContactPage() {
                   <Youtube className="h-6 w-6 text-primary" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="space-y-4">
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
               <h3 className="text-xl font-semibold">Business Hours</h3>
               <div className="space-y-2">
                 <div className="flex justify-between">
@@ -242,33 +310,37 @@ export default function ContactPage() {
                   <span className="font-medium">Closed</span>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-gray-50">
         <div className="container">
-          <div
-            ref={mapRef}
-            className={cn("text-center max-w-3xl mx-auto mb-8", mapInView ? "animate-slide-up" : "opacity-0")}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideUp}
           >
             <h2 className="text-3xl font-bold mb-4">Find Us on Google Maps</h2>
             <p className="text-gray-600">
               Our center is conveniently located near St.Joseph's Church in Bajpe, Mangalore.
             </p>
-          </div>
+          </motion.div>
 
-          <div
-            className={cn(
-              "h-[400px] rounded-lg overflow-hidden shadow-lg",
-              mapInView ? "animate-fade-in" : "opacity-0",
-            )}
+          <motion.div
+            className="h-[400px] rounded-lg overflow-hidden shadow-lg"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
           >
             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
               <p className="text-gray-600">Google Maps would be embedded here</p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

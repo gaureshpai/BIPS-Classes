@@ -6,7 +6,6 @@ export function Footer() {
     <footer className="bg-primary text-black w-full">
       <div className="container px-6 py-12 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
-          {/* Brand Info Column */}
           <div className="space-y-6">
             <div className="flex items-center">
               <span className="text-3xl font-bold text-black">BIPS</span>
@@ -40,7 +39,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links Column */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-black mb-4">Quick Links</h3>
             <ul className="space-y-4">
@@ -62,7 +60,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info Column */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-black mb-4">Contact Info</h3>
             <ul className="space-y-5 text-black/80">

@@ -5,19 +5,49 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Target, Compass } from "lucide-react"
-import { useInView } from "react-intersection-observer"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export default function AboutPage() {
-  const { ref: heroRef, inView: heroInView } = useInView({ triggerOnce: true })
-  const { ref: visionRef, inView: visionInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: valuesRef, inView: valuesInView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const { ref: teamRef, inView: teamInView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } }
+  }
+
+  const slideUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  }
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  }
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  }
+
+  const staggerChildren = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
 
   return (
     <main className="min-h-screen flex flex-col">
       <section className="bg-gradient-to-r from-primary/10 to-primary/5 p-8 md:p-16">
-        <div ref={heroRef} className={cn("container", heroInView ? "animate-fade-in" : "opacity-0")}>
+        <motion.div
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About BIPS Classes</h1>
             <p className="text-xl text-gray-700 mb-4">Building Futures, Shaping Careers</p>
@@ -32,16 +62,24 @@ export default function AboutPage() {
               final-year degree aspirants – offering practical, skills-based education.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="p-8 md:p-16 bg-white">
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12" ref={visionRef}>
-          <div className={cn("space-y-6", visionInView ? "animate-slide-in-left" : "opacity-0")}>
-
-            <h2 className="text-3xl font-bold"><div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
-              <Target className="h-8 w-8 text-primary" />
-            </div>Our Vision</h2>
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12">
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={slideInLeft}
+          >
+            <h2 className="text-3xl font-bold">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+                <Target className="h-8 w-8 text-primary" />
+              </div>
+              Our Vision
+            </h2>
             <p className="text-gray-600">
               To become a leading institution for career-oriented education and to create 1,00,000 skilled professionals
               by 2025.
@@ -55,13 +93,21 @@ export default function AboutPage() {
                 className="rounded-lg shadow-lg"
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className={cn("space-y-6", visionInView ? "animate-slide-in-right" : "opacity-0")}>
-
-            <h2 className="text-3xl font-bold"><div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
-              <Compass className="h-8 w-8 text-primary" />
-            </div>Our Mission</h2>
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={slideInRight}
+          >
+            <h2 className="text-3xl font-bold">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+                <Compass className="h-8 w-8 text-primary" />
+              </div>
+              Our Mission
+            </h2>
             <p className="text-gray-600">
               To empower through education by delivering accessible, high-quality training that equips learners with
               essential skills for real-world success.
@@ -75,21 +121,30 @@ export default function AboutPage() {
                 className="rounded-lg shadow-lg"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-gray-50">
         <div className="container">
-          <div
-            className={cn("text-center max-w-3xl mx-auto mb-12", valuesInView ? "animate-slide-up" : "opacity-0")}
-            ref={valuesRef}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={slideUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
             <p className="text-gray-600">These principles guide everything we do at BIPS Classes.</p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={staggerChildren}
+          >
             {[
               {
                 title: "Excellence in teaching",
@@ -114,41 +169,48 @@ export default function AboutPage() {
                 description: "We are committed to contributing to the growth and development of our local community.",
               },
             ].map((value, index) => (
-              <Card
-                key={index}
-                className={cn(
-                  "border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full",
-                  valuesInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
-              >
-                <CardHeader>
-                  <div className="mb-4">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>{value.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{value.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={index} variants={slideUp}>
+                <Card
+                  className="border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full"
+                >
+                  <CardHeader>
+                    <div className="mb-4">
+                      <CheckCircle className="h-8 w-8 text-primary" />
+                    </div>
+                    <CardTitle>{value.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{value.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-white">
         <div className="container">
-          <div
-            className={cn("text-center max-w-3xl mx-auto mb-12", teamInView ? "animate-slide-up" : "opacity-0")}
-            ref={teamRef}
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={slideUp}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
             <p className="text-gray-600">
               Our dedicated team of educators and professionals are committed to your success.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={staggerChildren}
+          >
             {[
               {
                 name: "Rajesh Kumar",
@@ -171,27 +233,31 @@ export default function AboutPage() {
                 image: "/placeholder.svg?height=300&width=300",
               },
             ].map((member, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={cn(
-                  "text-center",
-                  teamInView ? `animate-slide-up [animation-delay:${index * 100}ms]` : "opacity-0",
-                )}
+                className="text-center"
+                variants={slideUp}
               >
                 <div className="relative h-64 w-64 mx-auto rounded-full overflow-hidden mb-4">
                   <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
                 </div>
                 <h3 className="text-xl font-bold">{member.name}</h3>
                 <p className="text-gray-600">{member.position}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="p-8 md:p-16 bg-gradient-to-r from-primary to-primary/80 text-white">
-        <div className="container text-center">
-          <div className="max-w-3xl mx-auto animate-fade-in">
+        <motion.div
+          className="container text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl text-black font-bold mb-6">Join Our Learning Community</h2>
             <p className="text-xl mb-8">Take the first step towards a brighter future with BIPS Classes.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -203,7 +269,7 @@ export default function AboutPage() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   )
